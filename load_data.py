@@ -1,12 +1,24 @@
 import pandas as pd
 import numpy as np
+import pickle
 
 
-#df = pd.DataFrame.from_csv('data/training_set.tsv', sep='\t', encoding='utf-8')
-df = pd.read_table('data/training_set.tsv', encoding='latin_1')
-print(df.info)
-#df = df[:1]
-#train = df.as_matrix(columns=['essay', 'rater1_domain1'])
-train = df.values
-print(train.shape)
-#print(train[0])
+def load_data(filepath, set_ids="all"):
+    df_raw = pd.read_table(filepath, encoding="latin_1")
+    print("Taille du set de base :",df_raw.shape)
+    if set_ids == "all":
+        df_raw = df_raw[['essay', "domain1_score"]]
+        print("Taille du set :",df_raw.shape)
+        return df_raw.values
+    else:
+        dfs = []
+        for i in set_ids:
+            dfs.append(df_raw.loc[df_raw['essay_set'] == i])
+        dfs = pd.concat(dfs)
+        dfs = dfs[['essay', 'domain1_score']]
+        print("Taille du set :",dfs.shape)
+        return dfs.values[:,0], dfs.values[:,-1:]
+
+X_train, y_train = load_data("data/training_set.tsv", [5])
+
+pickle.dump((X_train,y_train), open("data_set.pickle", "wb"))

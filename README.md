@@ -1,3 +1,3 @@
-# Projet de traitement automatique du language M2 - AIC
+# Projet de traitement automatique des langues M2 - AIC
 
 Malik Kazi Aoual et Nouredine Nour
