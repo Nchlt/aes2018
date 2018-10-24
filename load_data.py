@@ -21,4 +21,4 @@ def load_data(filepath, set_ids="all"):
 
 X_train, y_train = load_data("data/training_set.tsv", [5])
 
-pickle.dump((X_train,y_train), open("data_set.pickle", "wb"))
+pickle.dump((X_train,y_train), open("data/data_set.pickle", "wb"))
