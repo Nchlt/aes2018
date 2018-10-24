@@ -17,4 +17,6 @@ size = size - size.min()
 size = size / size.max()
 X = np.concatenate((X, size), axis=1)
 
+print(X.shape)
+print(y.shape)
 pickle.dump((X,y), open("data/data_featured.pickle", "wb"))
