@@ -9,6 +9,7 @@ def load_data(filepath, set_ids="all"):
     if set_ids == "all":
         df_raw = df_raw[['essay', "domain1_score"]]
         print("Taille du set :",df_raw.shape)
+        df_raw.dropna()
         return df_raw.values
     else:
         dfs = []
@@ -17,8 +18,9 @@ def load_data(filepath, set_ids="all"):
         dfs = pd.concat(dfs)
         dfs = dfs[['essay', 'domain1_score']]
         print("Taille du set :",dfs.shape)
+        df_raw.dropna()
         return dfs.values[:,0], dfs.values[:,-1:]
 
 X_train, y_train = load_data("data/training_set.tsv", [5])
 
-pickle.dump((X_train,y_train), open("data_set.pickle", "wb"))
+pickle.dump((X_train,y_train), open("data/data_set.pickle", "wb"))
