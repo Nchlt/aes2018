@@ -17,8 +17,8 @@ def load_data(filepath, set_ids="all"):
             dfs.append(df_raw.loc[df_raw['essay_set'] == i])
         dfs = pd.concat(dfs)
         dfs = dfs[['essay', 'domain1_score']]
+        dfs.dropna()
         print("Taille du set :",dfs.shape)
-        df_raw.dropna()
         return dfs.values[:,0], dfs.values[:,-1:]
 
 X_train, y_train = load_data("data/training_set.tsv", [5])
