@@ -5,10 +5,10 @@ import numpy as np
 import pickle
 
 X, y = pickle.load(open('data/data_featured.pickle', 'rb'))
-X = X[:,1].reshape(-1, 1)
+
 y = y.reshape(y.shape[0]).astype(float)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
 knn = KNeighborsClassifier(n_neighbors=10)
 knn.fit(X_train, y_train)

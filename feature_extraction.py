@@ -3,6 +3,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk
 import pickle
 
+nb_features = 2
+
+def lexical_diversity(text):
+    return len(set(text)) / len(text)
+
 some_text = "Bonjour, le délai d'acheminement de vos bien est, sur la base des camions! Pourriez vous me contacter, merci."
 X, y = pickle.load(open('data/data_set.pickle', 'rb'))
 # print(len(nltk.word_tokenize(some_text)))
@@ -10,12 +15,15 @@ X, y = pickle.load(open('data/data_set.pickle', 'rb'))
 # Ajout de la taille des essais normalisés entre 0 et 1
 X = X[:,None]
 size = []
+diversity = []
 for x in X :
-    size.append([len(x[0])])
+	size.append([len(x[0])])
+	diversity.append([lexical_diversity(x[0])])
 size = np.array(size)
 size = size - size.min()
 size = size / size.max()
-X = np.concatenate((X, size), axis=1)
+X = np.concatenate((X, size, diversity), axis=1)
+X= X[:,-nb_features:]
 
 print(X.shape)
 print(y.shape)
